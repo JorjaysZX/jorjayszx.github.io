@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08111f">
+<meta name="description" content="Beat Teams: cronómetros cara a cara y torneo por eliminación.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css">
+<title>Beat Teams</title>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">TORNEO DE PREGUNTAS</div><h1>BEAT <span>TEAMS</span></h1></div>
+  <div class="header-actions">
+    <button id="installBtn" class="ghost hidden">Instalar app</button>
+    <button id="fullscreenBtn" class="ghost">⛶ Pantalla completa</button>
+    <button id="soundBtn" class="ghost" aria-pressed="true">🔊 Sonido</button>
+  </div>
+</header>
+<nav class="tabs">
+  <button class="tab active" data-tab="match">Cara a cara</button>
+  <button class="tab" data-tab="setup">Equipos y torneo</button>
+  <button class="tab" data-tab="bracket">Cuadro</button>
+</nav>
+<main>
+<section id="match" class="panel active">
+  <div class="toolbar">
+    <div><label for="duration">Tiempo inicial por equipo</label><div class="inline"><input id="duration" type="number" min="5" max="600" value="50"><span>segundos</span><button id="applyTime" class="secondary">Aplicar</button></div></div>
+    <div class="round-indicator"><span id="matchTitle">Partida de prueba</span><strong id="roundLabel">RONDA 1 DE 3</strong></div>
+  </div>
+  <div class="scoreline"><span id="scoreA">0</span><span class="dash">—</span><span id="scoreB">0</span></div>
+  <div class="timers">
+    <button class="team-timer blue" id="timerA" data-team="0">
+      <span class="team-name" id="nameA">Equipo Azul</span>
+      <span class="clock-ring"><span class="clock" id="clockA">50.0</span><small>SEGUNDOS</small></span>
+      <span class="turn-state" id="stateA">TOCA PARA DAR EL TURNO</span>
+    </button>
+    <button class="team-timer red" id="timerB" data-team="1">
+      <span class="team-name" id="nameB">Equipo Rojo</span>
+      <span class="clock-ring"><span class="clock" id="clockB">50.0</span><small>SEGUNDOS</small></span>
+      <span class="turn-state" id="stateB">TOCA PARA DAR EL TURNO</span>
+    </button>
+  </div>
+  <div class="controls">
+    <button id="startBtn" class="primary">▶ Iniciar</button>
+    <button id="pauseBtn" class="secondary" disabled>Ⅱ Pausar</button>
+    <button id="nextRoundBtn" class="secondary" disabled>Siguiente ronda</button>
+    <button id="resetBtn" class="danger">↻ Reiniciar partida</button>
+  </div>
+  <p class="hint">Toca el panel del equipo que debe responder para activar su reloj. Si falla, no cambies el turno: su reloj sigue corriendo.</p>
+  <div id="saveStatus" class="save-status">● Guardado local automático</div>
+  <div id="status" class="status" role="status" aria-live="polite">Configura los equipos o inicia una partida de prueba.</div>
+</section>
+
+<section id="setup" class="panel">
+  <div class="section-head"><div><h2>Equipos y torneo</h2><p>Configura equipos, colores, tiempos y formato.</p></div></div>
+  <div class="settings-grid">
+    <div class="card">
+      <h3>Formato de torneo</h3>
+      <label for="teamCount">Cantidad de equipos</label>
+      <select id="teamCount"><option value="4">4 equipos</option><option value="6">6 equipos</option></select>
+      <label for="bestOf">Partidas</label>
+      <select id="bestOf"><option value="3">Al mejor de 3 rondas</option><option value="1">Una ronda por duelo</option><option value="5">Al mejor de 5 rondas</option></select>
+      <label for="setupTime">Tiempo inicial por equipo (segundos)</label>
+      <input id="setupTime" type="number" min="5" max="600" value="50">
+      <button id="saveSettings" class="primary full">Guardar configuración</button>
+      <button id="generateBracket" class="secondary full">Generar / reiniciar torneo</button>
+      <p class="small">Generar el torneo reinicia el cuadro y los resultados. Se pedirá confirmación si ya hay resultados.</p>
+    </div>
+    <div class="card">
+      <h3>Editar nombres y colores</h3>
+      <div id="teamEditor" class="team-editor"></div>
+      <button id="saveTeams" class="primary full">Guardar equipos</button>
+    </div>
+  </div>
+</section>
+
+<section id="bracket" class="panel">
+  <div class="section-head"><div><h2>Cuadro de eliminación</h2><p>El ganador de cada duelo avanza. En torneos de seis equipos, dos reciben pase directo a semifinales.</p></div><button id="refreshBracket" class="secondary">Actualizar cuadro</button></div>
+  <div id="bracketView" class="bracket"></div>
+</section>
+</main>
+<footer>Beat Teams · Prototipo local · No afiliado a ningún programa de televisión</footer>
+<script src="app.js"></script>
+</body>
+</html>
